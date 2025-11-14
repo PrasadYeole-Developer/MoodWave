@@ -1,12 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
 
 const FacialExpression = () => {
-  const videoRef = React.useRef();
+  const videoRef = useRef();
+
   useEffect(() => {
     const loadModels = async () => {
       await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
       await faceapi.nets.faceExpressionNet.loadFromUri("/models");
+    };
+
+    const handleVideoPlay = () => {
+      setInterval(async () => {
+        if (!videoRef.current) return;
+
+        const detections = await faceapi
+          .detectAllFaces(
+            videoRef.current,
+            new faceapi.TinyFaceDetectorOptions()
+          )
+          .withFaceExpressions();
+        console.log(detections[0].expressions);
+      }, 2000);
     };
 
     const startVideo = () => {
@@ -14,33 +29,17 @@ const FacialExpression = () => {
         .getUserMedia({ video: true })
         .then((stream) => {
           videoRef.current.srcObject = stream;
+          videoRef.current.addEventListener("play", handleVideoPlay); // add only once
         })
         .catch((err) => console.error("Error accessing webcam: ", err));
     };
 
-    const handleVideoPlay = () => {
-      setInterval(async () => {
-        const displaySize = {
-          width: videoRef.current.videoWidth,
-          height: videoRef.current.videoHeight,
-        };
-        faceapi.matchDimensions(displaySize);
-        const detections = await faceapi
-          .detectAllFaces(
-            videoRef.current,
-            new faceapi.TinyFaceDetectorOptions()
-          )
-          .withFaceExpressions();
-        console.log(detections);
-      }, 2000);
-    };
     loadModels().then(startVideo);
-    videoRef.current &&
-      videoRef.current.addEventListener("play", handleVideoPlay);
   }, []);
+
   return (
-    <div className="relative">
-      <video ref={videoRef} autoPlay muted className="w-full h-screen"></video>
+    <div className="relative h-screen flex items-center justify-center">
+      <video ref={videoRef} autoPlay muted className="w-full h-[70vh]"></video>
     </div>
   );
 };
