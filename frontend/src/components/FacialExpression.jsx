@@ -58,12 +58,12 @@ const FacialExpression = () => {
         ></video>
         <div className="flex flex-col items-start justify-start px-4 pt-2">
           <h3 className="font-bold text-[0.9rem]">Live Mood Detection</h3>
-          <p className="text-[0.6rem] max-w-48 text-gray-500">
+          <p className="text-[0.6rem] max-w-60 text-gray-500">
             Your current mood is being analyzed in real-time. Enjoy music
             tailored to your feelings.
           </p>
           <button
-            className="text-white bg-indigo-700 px-3 py-1 font-semibold text-[0.6rem] rounded border-none mt-4 cursor-pointer hover:opacity-90 transition-opacity duration-300"
+            className="text-white bg-indigo-600 px-3 py-1 font-semibold text-[0.6rem] rounded border-none mt-4 cursor-pointer hover:bg-indigo-700 transition-colors duration-300"
             onClick={detectMood}
           >
             Detect Mood
