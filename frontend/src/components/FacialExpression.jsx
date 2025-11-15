@@ -56,7 +56,7 @@ const FacialExpression = () => {
           className="w-full h-[70vh]"
         ></video>
         <button
-          className="text-white bg-black px-6 py-4 rounded border-none mt-6 cursor-pointer hover:opacity-80 transition"
+          className="text-white bg-[#1b1b1b] px-6 py-4 rounded border-none mt-6 cursor-pointer hover:opacity-80 transition"
           onClick={detectMood}
         >
           Detect Mood
