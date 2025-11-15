@@ -1,10 +1,17 @@
 import React from "react";
 import FacialExpression from "./components/FacialExpression";
+import Header from "./components/Header";
+import Layout from "./components/Layout";
+import SongList from "./components/SongList";
 
 const App = () => {
   return (
     <>
-      <FacialExpression />
+      <Header />
+      <Layout>
+        <FacialExpression />
+        <SongList />
+      </Layout>
     </>
   );
 };
