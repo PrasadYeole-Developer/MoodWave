@@ -10,7 +10,6 @@ const FacialExpression = () => {
     }
     return max;
   };
-
   const detectMood = async () => {
     if (!videoRef.current) return;
 
@@ -33,7 +32,6 @@ const FacialExpression = () => {
       await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
       await faceapi.nets.faceExpressionNet.loadFromUri("/models");
     };
-
     const startVideo = () => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -47,22 +45,32 @@ const FacialExpression = () => {
   }, []);
 
   return (
-    <>
-      <div className="relative h-screen flex flex-col items-center justify-center">
+    <div className="w-full">
+      <div>
+        <h2 className="font-bold text-2xl my-4">Live Mood Detection</h2>
+      </div>
+      <div className="relative flex">
         <video
           ref={videoRef}
           autoPlay
           muted
-          className="w-full h-[70vh]"
+          className="w-60 rounded aspect-video object-cover"
         ></video>
-        <button
-          className="text-white bg-[#1b1b1b] px-6 py-4 rounded border-none mt-6 cursor-pointer hover:opacity-80 transition"
-          onClick={detectMood}
-        >
-          Detect Mood
-        </button>
+        <div className="flex flex-col items-start justify-start px-4 pt-2">
+          <h3 className="font-bold text-[0.9rem]">Live Mood Detection</h3>
+          <p className="text-[0.6rem] max-w-48 text-gray-500">
+            Your current mood is being analyzed in real-time. Enjoy music
+            tailored to your feelings.
+          </p>
+          <button
+            className="text-white bg-indigo-700 px-3 py-1 font-semibold text-[0.6rem] rounded border-none mt-4 cursor-pointer hover:opacity-90 transition-opacity duration-300"
+            onClick={detectMood}
+          >
+            Detect Mood
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
