@@ -1,4 +1,5 @@
 const ImageKit = require("imagekit");
+require("dotenv").config();
 
 const imageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -6,4 +7,27 @@ const imageKit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-module.exports = imageKit;
+const uploadFile = (file) => {
+  return new Promise((resolve, reject) => {
+    imageKit.upload(
+      {
+        file: file.buffer,
+        fileName: file.originalname,
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+  });
+};
+
+module.exports = { uploadFile };
+
+// const uploadFile = (file) => {
+//   return imageKit.upload({
+//     file: file.buffer,
+//     fileName: file.originalname,
+//   });
+// };
+// This commented function works the same as above if we didn't give callback imagekit returns a Promise
