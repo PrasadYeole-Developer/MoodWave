@@ -1,4 +1,6 @@
 const ImageKit = require("imagekit");
+const uuid = require("uuid");
+
 require("dotenv").config();
 
 const imageKit = new ImageKit({
@@ -12,7 +14,8 @@ const uploadFile = (file) => {
     imageKit.upload(
       {
         file: file.buffer,
-        fileName: file.originalname,
+        fileName: uuid.v4() + file.originalname,
+        folder: "/moodwave_audios",
       },
       (error, result) => {
         if (error) reject(error);
