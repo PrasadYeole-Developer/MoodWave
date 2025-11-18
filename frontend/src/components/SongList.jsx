@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 const SongList = ({ songs }) => {
   const [play, setPlay] = useState(true);
-  const handlePlay = () => {
-    setPlay(!play);
+  const handlePlay = (index) => {
+    play === index ? setPlay(null) : setPlay(index);
   };
   return (
     <div>
@@ -15,14 +15,19 @@ const SongList = ({ songs }) => {
               <p className="text-[0.75rem]">{song.title}</p>
               <p className="text-[0.6rem] text-indigo-900/70">{song.artist}</p>
             </div>
+            {
+              play === idx && (
+                <audio key={idx} src={song.audioFile} autoPlay loop />
+              )
+            }
             <div
               className="cursor-pointer transition-all hover:scale-110 duration-150 active:scale-0 active:duration-500"
-              onClick={handlePlay}
+              onClick={() => handlePlay(idx)}
             >
-              {play ? (
-                <i className="ri-play-large-line"></i>
-              ) : (
+              {play === idx ? (
                 <i className="ri-pause-large-line"></i>
+              ) : (
+                <i className="ri-play-large-line"></i>
               )}
             </div>
           </div>
