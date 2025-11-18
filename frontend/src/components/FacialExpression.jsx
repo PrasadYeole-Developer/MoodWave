@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
+import axios from "axios";
 
-const FacialExpression = () => {
+const FacialExpression = ({ setSongs }) => {
   const videoRef = useRef();
   const maxVal = (expObject) => {
     let max = 0;
@@ -25,6 +26,10 @@ const FacialExpression = () => {
       (key) => expressions[key] === maxValue
     );
     console.log(dominantExpression);
+    const songs = await axios.get(
+      `http:localhost:3000/songs?mood=${dominantExpression}`
+    );
+    setSongs(songs.data.songs);
   };
 
   useEffect(() => {

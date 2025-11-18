@@ -1,28 +1,6 @@
 import React, { useState } from "react";
 
-const SongList = () => {
-  const [songs, setSongs] = useState([
-    {
-      title: "song_title",
-      artist: "song_artist",
-      url: "...",
-    },
-    {
-      title: "song_title",
-      artist: "song_artist",
-      url: "...",
-    },
-    {
-      title: "song_title",
-      artist: "song_artist",
-      url: "...",
-    },
-    {
-      title: "song_title",
-      artist: "song_artist",
-      url: "...",
-    },
-  ]);
+const SongList = ({ songs }) => {
   const [play, setPlay] = useState(true);
   const handlePlay = () => {
     setPlay(!play);
