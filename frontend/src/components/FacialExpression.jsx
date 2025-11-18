@@ -26,7 +26,7 @@ const FacialExpression = ({ setSongs }) => {
     );
     console.log(dominantExpression);
     const songs = await axios.get(
-      `https://moodwave-backend.onrender.com/songs?mood=${dominantExpression}`
+      `${import.meta.env.VITE_API_BASE_URL}/songs?mood=${dominantExpression}`
     );
     setSongs(songs.data.songs);
   };
