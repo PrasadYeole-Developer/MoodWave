@@ -13,7 +13,6 @@ const FacialExpression = ({ setSongs }) => {
   };
   const detectMood = async () => {
     if (!videoRef.current) return;
-
     const detections = await faceapi
       .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceExpressions();
@@ -27,7 +26,7 @@ const FacialExpression = ({ setSongs }) => {
     );
     console.log(dominantExpression);
     const songs = await axios.get(
-      `http://localhost:3000/songs?mood=${dominantExpression}`
+      `https://moodwave-backend.onrender.com/songs?mood=${dominantExpression}`
     );
     setSongs(songs.data.songs);
   };
