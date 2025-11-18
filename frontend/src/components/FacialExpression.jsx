@@ -27,7 +27,7 @@ const FacialExpression = ({ setSongs }) => {
     );
     console.log(dominantExpression);
     const songs = await axios.get(
-      `http:localhost:3000/songs?mood=${dominantExpression}`
+      `http://localhost:3000/songs?mood=${dominantExpression}`
     );
     setSongs(songs.data.songs);
   };
