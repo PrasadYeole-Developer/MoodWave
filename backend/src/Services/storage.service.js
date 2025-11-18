@@ -14,7 +14,8 @@ const uploadFile = (file) => {
     imageKit.upload(
       {
         file: file.buffer,
-        fileName: uuid.v4() + file.originalname,
+        fileName: uuid.v4() + "-" + file.originalname,
+        mime: file.mimetype,
         folder: "/moodwave_audios",
       },
       (error, result) => {
