@@ -6,19 +6,19 @@ const uploadSong = async (req, res) => {
     return res.status(400).json({ error: "Audio file is required" });
   try {
     const uploadedFile = await uploadFile(req.file);
+    const song = await Song.create({
+      title: req.body.title,
+      artist: req.body.artist,
+      audioFile: uploadedFile.url,
+      mood: req.body.mood,
+    });
+    res.status(201).json({
+      message: "Song created successfully",
+      song: song,
+    });
   } catch (err) {
     return res.status(500).json({ error: "Upload failed", details: err });
   }
-  const song = await Song.create({
-    title: req.body.title,
-    artist: req.body.artist,
-    audioFile: uploadedFile.url,
-    mood: req.body.mood,
-  });
-  res.status(201).json({
-    message: "Song created successfully",
-    song: song,
-  });
 };
 
 const getSongs = async (req, res) => {
