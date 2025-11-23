@@ -9,6 +9,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.set("json spaces", 4);
 app.get("/", (req, res) => {
   res.send("MoodWave Backend is running");
 });
