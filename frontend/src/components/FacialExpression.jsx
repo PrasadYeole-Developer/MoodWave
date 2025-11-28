@@ -20,7 +20,12 @@ const FacialExpression = ({ setSongs, isDetecting, setIsDetecting }) => {
       .withFaceExpressions();
     if (!detections || !detections.length) {
       setSongs();
-      toast("Simple message");
+      toast("No Face Detected!", {
+        style: {
+          fontFamily: "Inter",
+        },
+        className: "text-[#1b1b1b]! border-red-700! rounded! shadow-sm!"
+      });
       setIsDetecting(false);
     }
     const expressions = detections[0].expressions;
