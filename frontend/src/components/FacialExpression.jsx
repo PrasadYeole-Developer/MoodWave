@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
 import axios from "axios";
+import { toast } from "sonner";
 
 const FacialExpression = ({ setSongs, isDetecting, setIsDetecting }) => {
   const videoRef = useRef();
@@ -19,7 +20,7 @@ const FacialExpression = ({ setSongs, isDetecting, setIsDetecting }) => {
       .withFaceExpressions();
     if (!detections || !detections.length) {
       setSongs();
-      console.log("No face detected");
+      toast("Simple message");
       setIsDetecting(false);
     }
     const expressions = detections[0].expressions;

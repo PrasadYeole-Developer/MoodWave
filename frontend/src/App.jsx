@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Layout from "./components/Layout";
 import SongList from "./components/SongList";
 import { useState } from "react";
+import { Toaster } from "sonner";
 
 const App = () => {
   const [songs, setSongs] = useState([]);
@@ -11,6 +12,7 @@ const App = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
       <Header />
       <Layout>
         <FacialExpression
