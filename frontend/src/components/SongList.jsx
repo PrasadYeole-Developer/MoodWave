@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SongList = ({ songs }) => {
+const SongList = ({ songs, isDetecting }) => {
   const [play, setPlay] = useState(true);
   const handlePlay = (index) => {
     play === index ? setPlay(null) : setPlay(index);
@@ -8,7 +8,11 @@ const SongList = ({ songs }) => {
   return (
     <div>
       <h3 className="font-bold text-[1rem] mt-4">Recommended Tracks</h3>
-      {!songs || songs.length === 0 ? (
+      {isDetecting ? (
+        <div className="text-gray-500 text-[0.75rem] my-4">
+          Getting songs for you!
+        </div>
+      ) : !songs || songs.length === 0 ? (
         <div className="text-gray-500 text-[0.75rem] my-4">
           Detect your mood to get song recommendations!
         </div>

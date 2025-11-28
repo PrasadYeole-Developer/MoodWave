@@ -7,13 +7,18 @@ import { useState } from "react";
 
 const App = () => {
   const [songs, setSongs] = useState([]);
+  const [isDetecting, setIsDetecting] = useState(false);
 
   return (
     <>
       <Header />
       <Layout>
-        <FacialExpression setSongs={setSongs} />
-        <SongList songs={songs} />
+        <FacialExpression
+          setSongs={setSongs}
+          isDetecting={isDetecting}
+          setIsDetecting={setIsDetecting}
+        />
+        <SongList songs={songs} isDetecting={isDetecting} />
       </Layout>
     </>
   );

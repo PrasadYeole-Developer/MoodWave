@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
 import axios from "axios";
 
-const FacialExpression = ({ setSongs }) => {
+const FacialExpression = ({ setSongs, isDetecting, setIsDetecting }) => {
   const videoRef = useRef();
-  const [isDetecting, setIsDetecting] = useState(false);
   const maxVal = (expObject) => {
     let max = 0;
     for (let val of Object.values(expObject)) {
