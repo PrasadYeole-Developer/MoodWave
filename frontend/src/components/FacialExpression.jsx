@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import axios from "axios";
 
 const FacialExpression = ({ setSongs }) => {
   const videoRef = useRef();
+  const [isDetecting, setIsDetecting] = useState(false);
   const maxVal = (expObject) => {
     let max = 0;
     for (let val of Object.values(expObject)) {
@@ -12,12 +13,15 @@ const FacialExpression = ({ setSongs }) => {
     return max;
   };
   const detectMood = async () => {
+    setIsDetecting(true);
     if (!videoRef.current) return;
     const detections = await faceapi
       .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceExpressions();
     if (!detections || !detections.length) {
+      setSongs();
       console.log("No face detected");
+      setIsDetecting(false);
     }
     const expressions = detections[0].expressions;
     const maxValue = maxVal(expressions);
@@ -28,6 +32,7 @@ const FacialExpression = ({ setSongs }) => {
     const songs = await axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/songs?mood=${dominantExpression}`
     );
+    setIsDetecting(false);
     setSongs(songs.data.songs);
   };
 
@@ -67,10 +72,15 @@ const FacialExpression = ({ setSongs }) => {
             tailored to your feelings.
           </p>
           <button
-            className="text-white bg-indigo-600 px-3 py-1 font-semibold text-[0.6rem] rounded border-none mt-4 cursor-pointer hover:bg-indigo-700 transition-colors duration-300"
+            className={`text-white px-3 py-1 font-semibold text-[0.6rem] rounded border-none mt-4 cursor-pointer hover:bg-indigo-700 transition-colors duration-300 ${
+              isDetecting
+                ? "bg-indigo-600/70 disabled:cursor-not-allowed disabled:hover:bg-indigo-600/70"
+                : "bg-indigo-600"
+            }`}
             onClick={detectMood}
+            disabled={isDetecting}
           >
-            Detect Mood
+            {isDetecting ? "Detecting..." : "Detect Mood"}
           </button>
         </div>
       </div>
